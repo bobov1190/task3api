@@ -1,15 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 
 namespace Task3Api.Controllers
 {
     [ApiController]
-    [Route("bobov1190_gmail_com")] // 👈 твой email с _ вместо @ и .
+    [Route("bobov1190_gmail_com")] // твой email с _ вместо @ и .
     public class Task3Controller : ControllerBase
     {
         [HttpGet]
         public string Get([FromQuery] string x, [FromQuery] string y)
         {
-            if (!long.TryParse(x, out long a) || !long.TryParse(y, out long b) || a < 0 || b < 0)
+            if (!BigInteger.TryParse(x, out BigInteger a) || !BigInteger.TryParse(y, out BigInteger b) || a < 0 || b < 0)
             {
                 return "NaN";
             }
@@ -17,17 +18,17 @@ namespace Task3Api.Controllers
             if (a == 0) return b.ToString();
             if (b == 0) return a.ToString();
 
-            long gcd = GCD(a, b);
-            long lcm = a / gcd * b; // важно: делим перед умножением, чтобы избежать переполнения
+            BigInteger gcd = GCD(a, b);
+            BigInteger lcm = a / gcd * b;
 
             return lcm.ToString();
         }
 
-        private long GCD(long a, long b)
+        private BigInteger GCD(BigInteger a, BigInteger b)
         {
             while (b != 0)
             {
-                long temp = b;
+                BigInteger temp = b;
                 b = a % b;
                 a = temp;
             }
