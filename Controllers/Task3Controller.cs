@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Task3Api.Controllers
 {
     [ApiController]
-    [Route("bobov_gmail_com")] // 👈 тут именно твой email с _ вместо @ и .
+    [Route("bobov1190_gmail_com")] // 👈 тут именно твой email с _ вместо @ и .
     public class Task3Controller : ControllerBase
     {
         [HttpGet]
@@ -32,3 +32,4 @@ namespace Task3Api.Controllers
         }
     }
 }
+
