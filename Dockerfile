@@ -1,18 +1,19 @@
-# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# Этап сборки
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-COPY . .
+# копируем csproj и восстанавливаем зависимости
+COPY task3api.csproj ./
 RUN dotnet restore
+
+# копируем всё и публикуем
+COPY . .
 RUN dotnet publish -c Release -o /app
 
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Этап запуска
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
-COPY --from=build /app .
+COPY --from=build /app ./
 
-# Указываем порт
-ENV ASPNETCORE_URLS=http://+:10000
-EXPOSE 10000
-
-ENTRYPOINT ["dotnet", "Task3Api.dll"]
+# указываем точку входа
+ENTRYPOINT ["dotnet", "task3api.dll"]
