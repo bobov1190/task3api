@@ -1,7 +1,7 @@
 services:
   - type: web
     name: task3api
-    env: dotnet
+    env: docker
     plan: free
-    buildCommand: dotnet publish -c Release -o out
-    startCommand: dotnet out/Task3Api.dll
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
